@@ -1,0 +1,37 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <form action="store/contact" method="post"> {% csrf_token %}
+
+      {% for message in messages %}
+                <p id="messages"> {{ message }}</p>
+
+                {% endfor %}
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="australia">Australia</option>
+      <option value="canada">Canada</option>
+        <option value="usa">Deutschland</option>
+        <option value="usa">Frankreich</option>
+        <option value="usa">Spanien</option>
+        <option value="usa">Tunesien</option>
+      <option value="usa">USA</option>
+    </select>
+
+    <label for="subject">Subject</label>
+    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+
+    <input type="submit" value="Submit">
+
+
+  </form>
+</div>
+
+{% endblock %}
