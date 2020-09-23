@@ -103,6 +103,10 @@ class OrderItem(models.Model):
     total = models.DecimalField(max_digits=100, decimal_places=2, default=0.00)
     data_added = models.DateTimeField(auto_now_add=True)
 
+    def get_total(self):
+        print('zabourmha')
+        return self.quantity*self.products.price
+
 
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)

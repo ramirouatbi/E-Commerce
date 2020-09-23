@@ -1,6 +1,26 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+<script>  getCount = function() {
+
+let count = 1 ;
+
+     count += 1;
+    document.getElementById("item-quantity").innerHTML= count;
+   console.log('awe', count);
+   return count;
+    };
+
+getCountMinus = function() {
+
+let count = 2 ;
+
+     count -= 1;
+    document.getElementById("item-quantity").innerHTML= count;
+   console.log('awe', count);
+   return count;
+    };
+</script>
 <div class="row">
 		<div class="col-lg-12">
 			<div class="box-element">
@@ -35,14 +55,14 @@
 					<div style="flex:2"><p>{{item.name }}</p></div>
 					<div style="flex:1"><p>€{{item.price|floatformat:2 }}</p></div>
 					<div style="flex:1">
-						<p class="quantity">{{item.quantity}}</p>
-						<div class="quantity">
-							<img class="chg-quantity" src="{% static  'images/arrow-up.png' %}">
+						<p class="quantity" id="item-quantity">1</p>
+						<div class="quantity"  id="quantity">
+							<img id="chg-quantity_1" class="chg-quantity" src="{% static  'images/arrow-up.png' %}" onclick="getCount()">
 
-							<img class="chg-quantity" src="{% static  'images/arrow-down.png' %}">
+							<img id="chg-quantity_2" class="chg-quantity" src="{% static  'images/arrow-down.png' %}"  onclick="getCountMinus()">
 						</div>
 					</div>
-					<div style="flex:1">€{{item.cart.total}}</div>
+					<div style="flex:1">€{{item.get_total}}</div>
 				</div>
                 {% endfor %}
 			</div>

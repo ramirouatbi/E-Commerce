@@ -3,7 +3,7 @@ from django.db.models import QuerySet
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
-from django.contrib import messages
+from django.contrib import messages, auth
 
 from .models import *
 from .models import Product
@@ -73,6 +73,17 @@ def contact(request):
 
 def loginPage(request):
     context = {}
+    if request.method=="POST":
+        name2=request.POST['name']
+        password2=request.POST['password1']
+        print(name2,password2)
+        x=auth.authenticate(name=name2,password=password2)
+        if x is not None:
+            auth.login(request,x)
+            messages.info(request, 'Success')
+            return redirect("/")
+        else:
+            messages.info(request,'Invalid')
     return render (request, 'store/login.html', context)
 
 def registerPage(request):
@@ -106,7 +117,7 @@ def update_cart(request,slug):
         cart.save()
     else:
         cart.products.remove(product)
-        cart.quantity-=1
+        cart.quantity+=1
         cart.save()
     new_total = 0.00
     for item in cart.products.all():
